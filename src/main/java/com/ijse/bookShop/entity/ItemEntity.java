@@ -43,8 +43,6 @@ public class ItemEntity {
     @Column(nullable = false)
     private Double discount;
 
-    @Column(nullable = false)
-    private Boolean isNew;
 
     @ManyToOne
     @JoinColumn(name = "itemcat_id",nullable = false)
