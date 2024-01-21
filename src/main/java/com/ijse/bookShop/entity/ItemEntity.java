@@ -38,6 +38,9 @@ public class ItemEntity {
     private Double purchasePrice;
 
     @Column(nullable = false)
+    private Double originalPrice;
+
+    @Column(nullable = false)
     private Double sellingPrice;
 
     @Column(nullable = false)
