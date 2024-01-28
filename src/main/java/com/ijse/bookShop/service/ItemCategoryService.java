@@ -14,4 +14,5 @@ public interface ItemCategoryService {
     ItemCategoryEntity findCategoryById(Long id) throws Exception;
     ItemCategoryEntity createCategory(ItemCategoryDto itemCategoryDto) throws Exception;
     ItemCategoryEntity updateCategory(Long id,ItemCategoryDto itemCategoryDto) throws Exception;
+    
 }

@@ -23,7 +23,7 @@ public class ItemCategorySrviceImpl implements ItemCategoryService {
 
     @Override
     public ItemCategoryEntity findCategoryById(Long id) throws Exception {
-       return null;
+       return itemCategoryRepository.findById(id).orElse(null);
     }
 
     @Override

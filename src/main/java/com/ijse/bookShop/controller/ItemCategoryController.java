@@ -52,6 +52,12 @@ public class ItemCategoryController {
         }
         
     }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<?> findCategoryById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok().body(itemCategoryService.findCategoryById(id));
+    }
+    
     
     
     
