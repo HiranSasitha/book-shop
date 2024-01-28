@@ -30,7 +30,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemEntity findItemById(Long id) throws Exception {
-        return null;
+        return itemRepository.findById(id).orElse(null);
     }
 
     @Override

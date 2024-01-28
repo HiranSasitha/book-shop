@@ -42,7 +42,7 @@ public class ItemController {
     }
 
     @PutMapping("item/{id}/update")
-    public ResponseEntity<?> putMethodName(@PathVariable Long id, @RequestBody ItemDto itemDto) {
+    public ResponseEntity<?> updateItem(@PathVariable Long id, @RequestBody ItemDto itemDto) {
         try {
             return ResponseEntity.ok().body(itemService.updateItem(id, itemDto));
         } catch (Exception e) {
@@ -65,6 +65,12 @@ public class ItemController {
 
         return ResponseEntity.ok().body("successfull delete");
     }
+
+    @GetMapping("/item/{id}")
+    public ResponseEntity<?> getItemById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok().body(itemService.findItemById(id));
+    }
+    
     
     
     
