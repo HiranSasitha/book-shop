@@ -25,7 +25,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping("/item")
+    @PostMapping("/admin/item")
     public ResponseEntity<?> saveItem(@RequestBody ItemDto itemDto) {
         
         try {
@@ -36,12 +36,12 @@ public class ItemController {
         
     }
 
-    @GetMapping("/item")
+    @GetMapping("/auth/item")
     public ResponseEntity<?> getAllItem() throws Exception {
         return ResponseEntity.ok().body(itemService.getAllItem());
     }
 
-    @PutMapping("item/{id}/update")
+    @PutMapping("/adminitem/{id}/update")
     public ResponseEntity<?> updateItem(@PathVariable Long id, @RequestBody ItemDto itemDto) {
         try {
             return ResponseEntity.ok().body(itemService.updateItem(id, itemDto));
@@ -50,7 +50,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/categories/{id}/items")
+    @GetMapping("/user/categories/{id}/items")
     public ResponseEntity<?> getItemByCategory(@PathVariable Long id)  {
         try {
             return ResponseEntity.ok().body(itemService.getItemByCategory(id));
@@ -59,14 +59,14 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("/item/{id}/delete")
+    @DeleteMapping("/admin/item/{id}/delete")
     public ResponseEntity<?> deleteItem(@PathVariable Long id) throws Exception{
         itemService.deletItem(id);
 
         return ResponseEntity.ok().body("successfull delete");
     }
 
-    @GetMapping("/item/{id}")
+    @GetMapping("/user/item/{id}")
     public ResponseEntity<?> getItemById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok().body(itemService.findItemById(id));
     }

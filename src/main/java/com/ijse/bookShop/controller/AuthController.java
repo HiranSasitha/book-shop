@@ -1,65 +1,91 @@
 package com.ijse.bookShop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.ijse.bookShop.dto.LogingDto;
 import com.ijse.bookShop.dto.UserDto;
 import com.ijse.bookShop.entity.UserEntity;
+import com.ijse.bookShop.repository.UserRepository;
+import com.ijse.bookShop.security.jwt.JwtUtils;
 import com.ijse.bookShop.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
 
 @RestController
-@CrossOrigin(origins = "*") 
+@CrossOrigin(origins = "*")
 
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+@Autowired
+private UserRepository userRepository;
 
-    @PostMapping("/user")
-    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
-        
-        try {
-            return ResponseEntity.created(null).body(userService.createUSer(userDto));
-        } catch (Exception e) {
-            // TODO: handle exception
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        
-    }
+@Autowired
+private UserService userService;
 
-    @GetMapping("/user")
-    public ResponseEntity<?> getAllUSer() {
-        try {
-            return ResponseEntity.ok().body(userService.getAllUsers());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("null");
-        }
-    }
+@Autowired
+PasswordEncoder passwordEncoder;
+
+@Autowired
+private AuthenticationManager authenticationManager;
+
+@Autowired
+private JwtUtils jwtUtils;
 
 
-    @PutMapping("user/{id}/change-password")
-    public ResponseEntity<?> changePassword(@PathVariable Long id, @RequestBody UserDto userDto) {
-       try {
-        return ResponseEntity.ok().body(userService.changeUserPasword(id, userDto));
-       } catch (Exception e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
-       }
-    }
-    
     
 
+@PostMapping("/auth/rgister")
+public ResponseEntity<?> postMethodName(@RequestBody UserDto userDto) throws Exception {
+    
+    if(userRepository.existsByUserName(userDto.getUserName())){
+        return ResponseEntity.badRequest().body("Username Is already in use");
+    }
 
+    if(userRepository.existsByEmail(userDto.getEmail())){
+        return ResponseEntity.badRequest().body("Email is already in use");
+    }
+
+    UserDto newUser = new UserDto();
+    
+    newUser.setUserName(userDto.getUserName());
+    newUser.setEmail(userDto.getEmail());
+    
+    // Encode the password before setting it in the UserDto
+    newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+    newUser.setAddress(userDto.getAddress());
+    newUser.setUserCategoryId(userDto.getUserCategoryId());
+
+    return ResponseEntity.ok().body(userService.createUSer(newUser));
+}
+
+
+    @PostMapping("/auth/loging")
+    public ResponseEntity<?> login(@RequestBody LogingDto request)  {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        
+        return ResponseEntity.ok(jwt);
+    }
+    
     
     
 }

@@ -14,4 +14,5 @@ public interface UserService {
     UserEntity createUSer(UserDto userDto) throws Exception;
     UserEntity getUserById(Long id) throws Exception;
     UserEntity changeUserPasword(Long id,UserDto userDto) throws Exception;
+    
 }

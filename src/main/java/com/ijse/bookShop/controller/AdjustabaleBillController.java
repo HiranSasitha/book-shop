@@ -24,7 +24,7 @@ public class AdjustabaleBillController {
     @Autowired
     private AdjustableBillService adjustableBillService;
 
-    @PostMapping("/adjusbill")
+    @PostMapping("/admin/adjusbill")
     public ResponseEntity<?> create(@RequestBody AdjustabaleBillDto adjustabaleBillDto) {
         try {
             return ResponseEntity.ok().body(adjustableBillService.create(adjustabaleBillDto));
@@ -33,12 +33,12 @@ public class AdjustabaleBillController {
         }
     }
 
-    @GetMapping("/adjusbill")
+    @GetMapping("/auth/adjusbill")
     public ResponseEntity<?> getAll() throws Exception {
         return ResponseEntity.ok().body(adjustableBillService.getAll());
     }
 
-    @PutMapping("adjusbill/{id}/update")
+    @PutMapping("/admin/adjusbill/{id}/update")
     public ResponseEntity<?> putMethodName(@PathVariable Long id, @RequestBody AdjustabaleBillDto adjustabaleBillDto) {
         try {
             return ResponseEntity.ok().body(adjustableBillService.update(id, adjustabaleBillDto));

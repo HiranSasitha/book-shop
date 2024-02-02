@@ -1,9 +1,11 @@
 package com.ijse.bookShop.entity;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.ManyToAny;
+import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

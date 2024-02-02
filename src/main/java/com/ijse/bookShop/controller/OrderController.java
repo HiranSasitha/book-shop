@@ -24,7 +24,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/order")
+    @GetMapping("/admin/order")
     public ResponseEntity<?> getAllOrders()  {
         try {
             return ResponseEntity.ok().body(orderService.getAllOrder());
@@ -33,7 +33,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/admin/order/{id}")
     public ResponseEntity<?> getOrderByid(@PathVariable Long id)  {
         try {
             return ResponseEntity.ok().body(orderService.getOrderById(id));
@@ -43,7 +43,7 @@ public class OrderController {
     }
 
 
-    @PostMapping("/order")
+    @PostMapping("/user/order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto orderDto) {
        try {
         return ResponseEntity.ok().body(orderService.createOrders(orderDto));

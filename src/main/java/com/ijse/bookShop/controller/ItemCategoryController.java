@@ -26,7 +26,7 @@ public class ItemCategoryController {
     @Autowired
     private ItemCategoryService itemCategoryService;
 
-    @PostMapping("/category")
+    @PostMapping("/admin/category")
     public ResponseEntity<?> createCategory(@RequestBody ItemCategoryDto itemCategoryDto) {
         try {
             return ResponseEntity.ok().body(itemCategoryService.createCategory(itemCategoryDto));
@@ -37,12 +37,12 @@ public class ItemCategoryController {
         
     }
 
-    @GetMapping("/category")
+    @GetMapping("/auth/category")
     public ResponseEntity<?> getAllCategory() throws Exception {
         return ResponseEntity.ok().body(itemCategoryService.getAllCategories());
     }
 
-    @PutMapping("/catgory/{id}/update")
+    @PutMapping("/admin/catgory/{id}/update")
     public ResponseEntity<?> updateItemCategory(@PathVariable Long id, @RequestBody ItemCategoryDto itemCategoryDto) {
         
         try {
@@ -53,7 +53,7 @@ public class ItemCategoryController {
         
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/user/category/{id}")
     public ResponseEntity<?> findCategoryById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok().body(itemCategoryService.findCategoryById(id));
     }
