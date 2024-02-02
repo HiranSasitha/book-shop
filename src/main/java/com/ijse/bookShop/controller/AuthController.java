@@ -19,8 +19,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -85,6 +88,18 @@ public ResponseEntity<?> postMethodName(@RequestBody UserDto userDto) throws Exc
         
         return ResponseEntity.ok(jwt);
     }
+
+    @GetMapping("/auth/{userName}")
+    public ResponseEntity<?> getUserEntityByUserName(@PathVariable String userName) throws Exception {
+        return ResponseEntity.ok().body(userService.getUserById(userName));
+    }
+
+    @GetMapping("/auth/usersd")
+    public ResponseEntity<?> getAllUsers() throws Exception {
+        return ResponseEntity.ok().body(userService.getAllUsers());
+    }
+    
+    
     
     
     

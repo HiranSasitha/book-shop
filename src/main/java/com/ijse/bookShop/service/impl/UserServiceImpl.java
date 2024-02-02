@@ -52,9 +52,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserEntity getUserById(Long id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    public UserEntity getUserById(String userName) throws Exception {
+      
+        return userRepository.findByUserName(userName).orElse(null);
     }
 
     @Override

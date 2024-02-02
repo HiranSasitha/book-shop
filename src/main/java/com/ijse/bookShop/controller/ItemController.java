@@ -41,7 +41,7 @@ public class ItemController {
         return ResponseEntity.ok().body(itemService.getAllItem());
     }
 
-    @PutMapping("/adminitem/{id}/update")
+    @PutMapping("/admin/item/{id}/update")
     public ResponseEntity<?> updateItem(@PathVariable Long id, @RequestBody ItemDto itemDto) {
         try {
             return ResponseEntity.ok().body(itemService.updateItem(id, itemDto));

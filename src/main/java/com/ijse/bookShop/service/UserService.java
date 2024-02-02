@@ -12,7 +12,8 @@ import com.ijse.bookShop.entity.UserEntity;
 public interface UserService {
     List<UserEntity> getAllUsers() throws Exception;
     UserEntity createUSer(UserDto userDto) throws Exception;
-    UserEntity getUserById(Long id) throws Exception;
+    UserEntity getUserById(String userName) throws Exception;
     UserEntity changeUserPasword(Long id,UserDto userDto) throws Exception;
+
     
 }

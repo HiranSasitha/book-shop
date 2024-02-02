@@ -67,11 +67,11 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth ->
         auth.requestMatchers("/auth/***").permitAll() //login regiseter routs are allowed *** ANY SUB URL IN AUTH                  
-        //.anyRequest().authenticated() // other router are not allowed if not login user
-        .requestMatchers("/admin/***").hasRole("ADMIN")
-        .requestMatchers("/user/***").hasRole("ADMIN")
-        .requestMatchers("/user/***").hasRole("USER")
-        .anyRequest().authenticated()
+        
+        .requestMatchers("/admin/***").hasAuthority("ADMIN")
+    
+    .requestMatchers("/user/***").hasAnyAuthority("ADMIN","USER")
+    .anyRequest().authenticated()
        
         );
 
