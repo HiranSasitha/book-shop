@@ -72,6 +72,8 @@ public class WebSecurityConfig {
     
     .requestMatchers("/user/***").hasAnyAuthority("ADMIN","USER")
     .anyRequest().authenticated()
+
+    // Hiran
        
         );
 
