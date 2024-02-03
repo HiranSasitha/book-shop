@@ -41,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private Collection<GrantedAuthority> getAuthorities(UserCategoryEntity userCategoryEntity) {
-        // Assuming UserCategoryEntity has a method getRoleName() that returns the role name
+        
         String roleName = userCategoryEntity.getUserType();
         return Collections.singleton(new SimpleGrantedAuthority(roleName));
     }
